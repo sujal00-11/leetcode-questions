@@ -11,6 +11,6 @@ class Solution {
             }
         }
 
-        return singleDigitSum != doubleDigitSum;
+        return (singleDigitSum>doubleDigitSum) || (doubleDigitSum>singleDigitSum);
     }
 }
