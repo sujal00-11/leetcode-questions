@@ -3,7 +3,8 @@ import java.util.Map;
 
 class Solution {
     public int subarraysDivByK(int[] nums, int k) {
-        Map<Integer, Integer> remainderCounts = new HashMap<>();
+        // Pre-size map to avoid resizing overhead (capacity k with load factor 0.75)
+        Map<Integer, Integer> remainderCounts = new HashMap<>(k * 2);
         remainderCounts.put(0, 1);
         
         int prefixSum = 0;
@@ -17,8 +18,14 @@ class Solution {
                 remainder += k;
             }
             
-            count += remainderCounts.getOrDefault(remainder, 0);
-            remainderCounts.put(remainder, remainderCounts.getOrDefault(remainder, 0) + 1);
+            
+            Integer existing = remainderCounts.get(remainder);
+            if (existing != null) {
+                count += existing;
+                remainderCounts.put(remainder, existing + 1);
+            } else {
+                remainderCounts.put(remainder, 1);
+            }
         }
         
         return count;
