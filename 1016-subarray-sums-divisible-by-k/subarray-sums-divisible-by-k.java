@@ -17,10 +17,7 @@ class Solution {
                 remainder += k;
             }
             
-            if (remainderCounts.containsKey(remainder)) {
-                count += remainderCounts.get(remainder);
-            }
-            
+            count += remainderCounts.getOrDefault(remainder, 0);
             remainderCounts.put(remainder, remainderCounts.getOrDefault(remainder, 0) + 1);
         }
         
