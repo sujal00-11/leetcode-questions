@@ -1,52 +1,40 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> ans = new ArrayList<>();
-        
-        if (matrix == null || matrix.length == 0) {
-            return ans;
-        }
-
-        int n = matrix.length;
-        int m = matrix[0].length;
-        
-        int top = 0;
-        int bottom = n - 1;
-        int left = 0;
-        int right = m - 1;
-
-        while (top <= bottom && left <= right) {
-            
-            for (int i = left; i <= right; i++) {
-                ans.add(matrix[top][i]);
+        List<Integer> ans=new ArrayList<>();
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int sr=0;
+        int er=n-1;
+        int sc=0;
+        int ec=m-1;
+        while(sr<=er&&sc<=ec){
+            //top
+            for(int j=sc;j<=ec;j++){
+                ans.add(matrix[sr][j]);
             }
-            top++;
-
-        
-            for (int i = top; i <= bottom; i++) {
-                ans.add(matrix[i][right]);
+            //right
+            for(int i=sr+1;i<=er;i++){
+                ans.add(matrix[i][ec]);
             }
-            right--;
-
-            
-            if (top <= bottom) {
-                for (int i = right; i >= left; i--) {
-                    ans.add(matrix[bottom][i]);
+            //bottom
+            for(int j=ec-1;j>=sc;j--){
+                if(sr==er){
+                    break;
                 }
-                bottom--;
+                ans.add(matrix[er][j]);
             }
-
-            
-            if (left <= right) {
-                for (int i = bottom; i >= top; i--) {
-                    ans.add(matrix[i][left]);
+            //left
+            for(int i=er-1;i>=sr+1;i--){
+                if(sc==ec){
+                    break;
                 }
-                left++;
+                ans.add(matrix[i][sc]);
             }
+            sr++;
+            er--;
+            sc++;
+            ec--;
         }
-
         return ans;
     }
 }
