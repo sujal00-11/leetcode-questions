@@ -8,11 +8,11 @@ class Solution {
         int boats = 0;
         
         while (left <= right) {
-            
+            // If the lightest and heaviest person can fit in the same boat
             if (people[left] + people[right] <= limit) {
                 left++;
             }
-            
+            // The heaviest person always gets on a boat (either alone or with the lightest)
             right--;
             boats++;
         }
