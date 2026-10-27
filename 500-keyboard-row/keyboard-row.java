@@ -1,42 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Solution {
     public String[] findWords(String[] words) {
-        
+        List<String> list = new ArrayList<>();
+
         String row1 = "qwertyuiop";
         String row2 = "asdfghjkl";
         String row3 = "zxcvbnm";
-        
-        List<String> result = new ArrayList<>();
-        
+
         for (String word : words) {
-            if (word.isEmpty()) continue;
-            
-            
-            String lowerWord = word.toLowerCase();
-            int targetRow = getRow(lowerWord.charAt(0), row1, row2, row3);
-            
-            boolean isValid = true;
-            for (int i = 1; i < lowerWord.length(); i++) {
-                if (getRow(lowerWord.charAt(i), row1, row2, row3) != targetRow) {
-                    isValid = false;
-                    break;
+            int[] temp = new int[3];
+
+            for (char ch : word.toLowerCase().toCharArray()) {
+                if (row1.indexOf(ch) != -1) {
+                    temp[0]++;
+                } else if (row2.indexOf(ch) != -1) {
+                    temp[1]++;
+                } else if (row3.indexOf(ch) != -1) {
+                    temp[2]++;
                 }
             }
-            
-            if (isValid) {
-                result.add(word);
+
+            if (temp[0] == word.length() ||
+                temp[1] == word.length() ||
+                temp[2] == word.length()) {
+                list.add(word);
             }
         }
-        
-        return result.toArray(new String[0]);
-    }
-    
-    
-    private int getRow(char c, String r1, String r2, String r3) {
-        if (r1.indexOf(c) != -1) return 1;
-        if (r2.indexOf(c) != -1) return 2;
-        return 3;
+
+        return list.toArray(new String[0]);
     }
 }
